@@ -20,23 +20,26 @@ void addEdge(struct Graph* ,int ,int);
 void DFS(struct Graph*,int);
 void printGraph(struct Graph*);
 
-int main(int argc, char const *argv[]) {
-  struct Graph* graph = createGraph(5);
-     addEdge(graph, 0, 1);
-     addEdge(graph, 0, 4);
-     addEdge(graph, 1, 2);
-     addEdge(graph, 1, 3);
-     addEdge(graph, 1, 4);
-     addEdge(graph, 2, 3);
-     addEdge(graph, 3, 4);
-
-   DFS(graph,2);
-
-   printGraph(graph);
-}
+// int main(int argc, char const *argv[]) {
+//   struct Graph* graph = createGraph(5);
+//      addEdge(graph, 0, 1);
+//      addEdge(graph, 0, 4);
+//      addEdge(graph, 1, 2);
+//      addEdge(graph, 1, 3);
+//      addEdge(graph, 1, 4);
+//      addEdge(graph, 2, 3);
+//      addEdge(graph, 3, 4);
+//
+//    DFS(graph,2);
+//
+//    printGraph(graph);
+// }
 
 struct Node* createNode(int n){
   struct Node* newNode = malloc(sizeof(struct Node));
+  if (!newNode) {
+    return NULL;
+  }
   newNode->vertex = n;
   newNode->next = NULL;
   return newNode;
@@ -44,10 +47,12 @@ struct Node* createNode(int n){
 
 struct Graph* createGraph(int vertices){
   struct Graph* newGraph = malloc(sizeof(struct Graph));
+  if(!newGraph){
+    return NULL;
+  }
   newGraph->numVertices = vertices;
   newGraph->AdjList = malloc(vertices * sizeof(struct Node*));
   newGraph->visited = malloc(vertices * sizeof(bool));
-
   for (size_t i = 0; i < vertices; i++) {
     newGraph->AdjList[i] = NULL;
     newGraph->visited[i] = false;
@@ -59,6 +64,7 @@ struct Graph* createGraph(int vertices){
 void addEdge(struct Graph* graph ,int src,int dest )
 {
     struct Node* newNode = createNode(dest);
+
     newNode->next = graph->AdjList[src];
     graph->AdjList[src] = newNode;
 
@@ -83,7 +89,6 @@ void printGraph(struct Graph* graph){
 void DFS(struct Graph* graph,int v){
   struct Node *newNode = graph->AdjList[v];
   struct Node *temp = newNode;
-
   graph->visited[v] = true;
   printf("Visited the vertex %d\n",v);
   while(temp!=NULL){
