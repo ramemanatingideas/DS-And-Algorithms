@@ -75,6 +75,21 @@ void addEdge(struct Graph* graph ,int src,int dest )
 
 }
 
+void addEdge_directed(struct Graph* graph ,int src,int dest )
+{
+    struct Node* newNode = createNode(dest);
+
+    newNode->next = graph->AdjList[src];
+    graph->AdjList[src] = newNode;
+
+    // newNode = createNode(src);
+    // newNode->next = graph->AdjList[dest];
+    // graph->AdjList[dest] = newNode;
+
+
+}
+
+
 void printGraph(struct Graph* graph){
   for (size_t i = 0; i < graph->numVertices; i++) {
       struct Node* temp =  graph->AdjList[i];
