@@ -3,8 +3,16 @@
 #include <queue>
 #include <vector>
 #include <bits/stdc++.h>
+
 using namespace std;
 typedef pair<int,int> node;
+
+void shortestPathUtil(vector<int>&v){
+	for(int it = 0;it<v.size();it++)
+		cout<<it<<" "<<v[it]<<endl;
+}
+
+
 class Graph{
 	private:
 			int V;
@@ -50,21 +58,14 @@ void Graph::Dijsktra(int source){
 			}
 		}
 	}
-
-	for(int i=0;i<V;i++){
-		cout<<i<<" "<<distances[i]<<endl;
-	}
-
-
+	shortestPathUtil(distances);
 }
-
 
 int main(int argc, char **argv)
 {
 	//Graph g(9);
 	 int V = 9;
     Graph g(V);
-
     //  making above shown graph
     g.addEdge(0, 1, 4);
     g.addEdge(0, 7, 8);
@@ -82,6 +83,8 @@ int main(int argc, char **argv)
     g.addEdge(7, 8, 7);
 
     g.Dijsktra(0);
+
+
 
 	return 0;
 }
